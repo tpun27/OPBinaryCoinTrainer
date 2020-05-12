@@ -9,15 +9,15 @@ public abstract class Type {
     char[] saviorAnimals = new char[2];
     char[] demonAnimals = new char[2];
 
-    boolean ooInsteadOfDd;
+    boolean singleDecider;
     boolean selfAboveTribe;
-    boolean gatherAboveOrganize;
+    boolean organizeAboveGather;
     boolean reasonAboveValue;
     boolean abstractOverPhysical;
     boolean consumeOverBlast;
     boolean sleepOverPlay;
     boolean masculineSensing;
-    boolean masculineDe;
+    boolean masculineExtrovertedDecider;
 
     Type(String name, String type) {
         this.name = name;
@@ -57,12 +57,12 @@ public abstract class Type {
         this.type = type;
     }
 
-    public boolean isOoInsteadOfDd() {
-        return ooInsteadOfDd;
+    public boolean isSingleDecider() {
+        return singleDecider;
     }
 
-    public void setOoInsteadOfDd(boolean ooInsteadOfDd) {
-        this.ooInsteadOfDd = ooInsteadOfDd;
+    public void setSingleDecider(boolean singleDecider) {
+        this.singleDecider = singleDecider;
     }
 
     public boolean isSelfAboveTribe() {
@@ -73,12 +73,12 @@ public abstract class Type {
         this.selfAboveTribe = selfAboveTribe;
     }
 
-    public boolean isGatherAboveOrganize() {
-        return gatherAboveOrganize;
+    public boolean isOrganizeAboveGather() {
+        return organizeAboveGather;
     }
 
-    public void setGatherAboveOrganize(boolean gatherAboveOrganize) {
-        this.gatherAboveOrganize = gatherAboveOrganize;
+    public void setOrganizeAboveGather(boolean organizeAboveGather) {
+        this.organizeAboveGather = organizeAboveGather;
     }
 
     public boolean isReasonAboveValue() {
@@ -121,11 +121,11 @@ public abstract class Type {
         this.masculineSensing = masculineSensing;
     }
 
-    public boolean isMasculineDe() {
-        return masculineDe;
+    public boolean isMasculineExtrovertedDecider() {
+        return masculineExtrovertedDecider;
     }
 
-    public void setMasculineDe(boolean masculineDe) {
-        this.masculineDe = masculineDe;
+    public void setMasculineExtrovertedDecider(boolean masculineExtrovertedDecider) {
+        this.masculineExtrovertedDecider = masculineExtrovertedDecider;
     }
 }

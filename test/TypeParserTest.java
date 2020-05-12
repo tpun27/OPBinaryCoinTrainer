@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import types.INTP;
+import types.ISFJ;
 import types.Type;
 import types.TypeParser;
 
@@ -28,4 +29,34 @@ class TypeParserTest {
         assertEquals(demonAnimals[1], 'B');
     }
 
+    @Test
+    void deriveAndSetCoinsTest() {
+        Type intp = new INTP("Bill Gates", "FF-Ti/Ne-CS/P(B)");
+        TypeParser.parseRawType(intp);
+        TypeParser.deriveAndSetCoins(intp);
+
+        assertEquals(intp.isSingleDecider(), true);
+        assertEquals(intp.isSelfAboveTribe(), true);
+        assertEquals(intp.isOrganizeAboveGather(), false);
+        assertEquals(intp.isReasonAboveValue(), true);
+        assertEquals(intp.isAbstractOverPhysical(), true);
+        assertEquals(intp.isConsumeOverBlast(), true);
+        assertEquals(intp.isSleepOverPlay(), true);
+        assertEquals(intp.isMasculineSensing(), false);
+        assertEquals(intp.isMasculineExtrovertedDecider(), false);
+
+        Type isfj = new ISFJ("Hannah Hart", "MM-Si/Fe-BP/C(S)");
+        TypeParser.parseRawType(isfj);
+        TypeParser.deriveAndSetCoins(isfj);
+
+        assertEquals(isfj.isSingleDecider(), false);
+        assertEquals(isfj.isSelfAboveTribe(), false);
+        assertEquals(isfj.isOrganizeAboveGather(), true);
+        assertEquals(isfj.isReasonAboveValue(), false);
+        assertEquals(isfj.isAbstractOverPhysical(), false);
+        assertEquals(isfj.isConsumeOverBlast(), false);
+        assertEquals(isfj.isSleepOverPlay(), false);
+        assertEquals(isfj.isMasculineSensing(), true);
+        assertEquals(isfj.isMasculineExtrovertedDecider(), true);
+    }
 }
