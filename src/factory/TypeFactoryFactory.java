@@ -3,9 +3,10 @@ package factory;
 import types.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TypeFactoryFactory {
-    static HashMap<String, AbstractTypeFactory<Type>> factoryMap;
+    static Map<String, AbstractTypeFactory<Type>> factoryMap;
 
     static {
         factoryMap = new HashMap<String, AbstractTypeFactory<Type>>() {{
