@@ -1,7 +1,8 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Application {
     private static Map<String, Type> allTypesMap;
@@ -15,14 +16,54 @@ public class Application {
 
     private static int NUMBER_OF_GROUPS = 4;
 
+    private static String[] GAME_BUTTON_NAMES = new String [] {
+            "1) Double Decider vs. Double Observer",
+            "2) Self above Tribe vs. Tribe above Self",
+            "3) Reasons over Values vs. Values over Reasons",
+            "4) Abstract over Physical vs. Physical over Abstract",
+            "5) Consume over Blast vs. Blast over Consume",
+            "6) Sleep over Play vs. Play over Sleep",
+            "7) Masculine Sensing vs. Feminine Sensing",
+            "8) Masculine Extroverted Decider vs. Feminine Extroverted Decider"
+    };
+
+    private static String[] INSTRUCTIONS = new String [] {
+            "Welcome to the OP Binary Coin trainer!",
+            "Please select from our menu options to start training!"
+    };
+
     public static void main(String[] args) {
         populateData();
 
-        switch (getOption()) {
-            case 1:
-                System.out.println(1);
-                break;
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
+    public static void createAndShowGUI() {
+        JFrame frame = new JFrame("OP Binary Coin Trainer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 300);
+
+        Container pane = frame.getContentPane();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+
+        for (String instruction : INSTRUCTIONS) {
+            JLabel label = new JLabel(instruction, JLabel.CENTER);
+            label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            pane.add(label);
         }
+
+        for (String buttonName : GAME_BUTTON_NAMES) {
+            JButton button = new JButton(buttonName);
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            pane.add(button);
+        }
+
+        frame.setVisible(true);
     }
 
     public static void populateData() {
@@ -93,34 +134,6 @@ public class Application {
             index++;
         }
         return -1;
-    }
-
-    public static int getOption() {
-        int optionValue;
-        Scanner optionScanner = new Scanner(System.in);
-
-        while (true) {
-            printOptions();
-            optionValue = Character.getNumericValue(optionScanner.next().charAt(0));
-            if ((optionValue >= 1) && (optionValue <= 8))
-                break;
-        }
-        return optionValue;
-    }
-
-    public static void printOptions() {
-        System.out.println("Welcome to the OP Binary Coin trainer!");
-        System.out.println("Please select from our menu options.");
-        System.out.println("More specifically, enter a number between 1 and 8:\n");
-        System.out.println("1) Double Decider vs. Double Observer");
-        System.out.println("2) Self above Tribe vs. Tribe above Self");
-        System.out.println("3) Reasons over Values vs. Values over Reasons");
-        System.out.println("4) Abstract over Physical vs. Physical over Abstract");
-        System.out.println("5) Consume over Blast vs. Blast over Consume");
-        System.out.println("6) Sleep over Play vs. Play over Sleep");
-        System.out.println("7) Masculine Sensing vs. Feminine Sensing");
-        System.out.println("8) Masculine Extroverted Decider vs. Feminine Extroverted Decider");
-        System.out.println("");
     }
 
     public static Map<String, Type> getAllTypesMap() {
