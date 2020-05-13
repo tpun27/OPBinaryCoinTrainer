@@ -28,7 +28,6 @@ class TypeParserTest {
     @Test
     void deriveAndSetCoinsTest() {
         Type intp = new Type("Bill Gates", "INTP", "FF-Ti/Ne-CS/P(B)");
-        TypeParser.parseRawType(intp);
         TypeParser.deriveAndSetCoins(intp);
 
         assertEquals(intp.isSingleDecider(), true);
@@ -42,7 +41,6 @@ class TypeParserTest {
         assertEquals(intp.isMasculineExtrovertedDecider(), false);
 
         Type isfj = new Type("Hannah Hart", "ISFJ", "MM-Si/Fe-BP/C(S)");
-        TypeParser.parseRawType(isfj);
         TypeParser.deriveAndSetCoins(isfj);
 
         assertEquals(isfj.isSingleDecider(), false);

@@ -3,6 +3,8 @@ import java.util.Map;
 
 public class TypeParser {
     static Map<String, String> functionMap;
+    static String[] extravertedDeciderFunctions;
+    static String[] sensingFunctions;
 
     static {
         functionMap = new HashMap<String, String>() {{
@@ -15,6 +17,20 @@ public class TypeParser {
             put("Fi", "Te");
             put("Fe", "Ti");
         }};
+    }
+
+    static {
+        extravertedDeciderFunctions = new String[] {
+                "Te",
+                "Fe"
+        };
+    }
+
+    static {
+        sensingFunctions = new String[] {
+                "Si",
+                "Se"
+        };
     }
 
     // Type will be '-' delimited
@@ -98,6 +114,22 @@ public class TypeParser {
             if (saviorAnimal == 'S')
                 type.setSleepOverPlay(true);
         }
+    }
+
+    public static boolean isExtrovertedDeciderFunction(String f) {
+        for (String function : extravertedDeciderFunctions) {
+            if (function.equals(f))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isSensingFunction(String f) {
+        for (String function : sensingFunctions) {
+            if (function.equals(f))
+                return true;
+        }
+        return false;
     }
 
     public static boolean isTorF(char c) {

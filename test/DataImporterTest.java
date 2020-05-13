@@ -11,7 +11,7 @@ class DataImporterTest {
         DataImporter dataImporter = new DataImporter();
 
         Map<String, Type> typeMap = dataImporter.readTypeData();
-        assertTrue(typeMap.size() >= 115);
+        assertTrue(typeMap.size() >= 116);
     }
 
 }

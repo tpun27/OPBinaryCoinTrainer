@@ -2,8 +2,7 @@ public class Type {
     String name;
     String typeMbtiString;
     String type512String;
-
-
+    
     String[] saviorFunctions = new String[2];
     String[] demonFunctions = new String[2];
     char[] saviorAnimals = new char[2];
