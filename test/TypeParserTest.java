@@ -1,15 +1,11 @@
 import org.junit.jupiter.api.Test;
-import types.INTP;
-import types.ISFJ;
-import types.Type;
-import types.TypeParser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TypeParserTest {
     @Test
     void parseRawTypeTest() {
-        Type intp = new INTP("Bill Gates", "FF-Ti/Ne-CS/P(B)");
+        Type intp = new Type("Bill Gates", "INTP", "FF-Ti/Ne-CS/P(B)");
         TypeParser.parseRawType(intp);
 
         String[] saviorFunctions = intp.getSaviorFunctions();
@@ -31,7 +27,7 @@ class TypeParserTest {
 
     @Test
     void deriveAndSetCoinsTest() {
-        Type intp = new INTP("Bill Gates", "FF-Ti/Ne-CS/P(B)");
+        Type intp = new Type("Bill Gates", "INTP", "FF-Ti/Ne-CS/P(B)");
         TypeParser.parseRawType(intp);
         TypeParser.deriveAndSetCoins(intp);
 
@@ -45,7 +41,7 @@ class TypeParserTest {
         assertEquals(intp.isMasculineSensing(), false);
         assertEquals(intp.isMasculineExtrovertedDecider(), false);
 
-        Type isfj = new ISFJ("Hannah Hart", "MM-Si/Fe-BP/C(S)");
+        Type isfj = new Type("Hannah Hart", "ISFJ", "MM-Si/Fe-BP/C(S)");
         TypeParser.parseRawType(isfj);
         TypeParser.deriveAndSetCoins(isfj);
 

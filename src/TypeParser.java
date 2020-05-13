@@ -1,5 +1,3 @@
-package types;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,14 +19,14 @@ public class TypeParser {
 
     // Type will be '-' delimited
     // e.g. FF-Ti/Ne-CS/P(B)
-    public static void parseRawType(Type mbtiType) {
-        String[] typeSplit = mbtiType.getType().split("-");
+    public static void parseRawType(Type type) {
+        String[] typeSplit = type.getType512String().split("-");
 
         // Parse functions
         String functionsRaw = typeSplit[1];
         String[] functionsRawArray = functionsRaw.split("/");
-        String[] saviorFunctions = mbtiType.getSaviorFunctions();
-        String[] demonFunctions = mbtiType.getDemonFunctions();
+        String[] saviorFunctions = type.getSaviorFunctions();
+        String[] demonFunctions = type.getDemonFunctions();
         // Logic is slightly complicated for the sake of reusing the Strings in functionMap
         demonFunctions[0] = functionMap.get(functionsRawArray[1]);
         demonFunctions[1] = functionMap.get(functionsRawArray[0]);
@@ -37,8 +35,8 @@ public class TypeParser {
 
         // Parse animals
         String animalsRaw = typeSplit[2];
-        char[] saviorAnimals = mbtiType.getSaviorAnimals();
-        char[] demonAnimals = mbtiType.getDemonAnimals();
+        char[] saviorAnimals = type.getSaviorAnimals();
+        char[] demonAnimals = type.getDemonAnimals();
         saviorAnimals[0] = animalsRaw.charAt(0);
         saviorAnimals[1] = animalsRaw.charAt(1);
         demonAnimals[0] = animalsRaw.charAt(3);
@@ -49,27 +47,27 @@ public class TypeParser {
         char extrovertedDeciderGender = gendersRaw.charAt(1);
 
         if (isM(sensoryGender))
-            mbtiType.setMasculineSensing(true);
+            type.setMasculineSensing(true);
         if (isM(extrovertedDeciderGender))
-            mbtiType.setMasculineExtrovertedDecider(true);
+            type.setMasculineExtrovertedDecider(true);
     }
 
-    public static void deriveAndSetCoins(Type mbtiType) {
-        setSingleDeciderCoin(mbtiType);
-        setFunctionCoins(mbtiType);
-        setAnimalCoins(mbtiType);
+    public static void deriveAndSetCoins(Type type) {
+        setSingleDeciderCoin(type);
+        setFunctionCoins(type);
+        setAnimalCoins(type);
     }
 
-    public static void setSingleDeciderCoin(Type mbtiType) {
+    public static void setSingleDeciderCoin(Type type) {
         // Get first letter of first function
-        char leadLetter = mbtiType.getSaviorFunctions()[0].charAt(0);
+        char leadLetter = type.getSaviorFunctions()[0].charAt(0);
 
         if (isTorF(leadLetter))
-            mbtiType.setSingleDecider(true);
+            type.setSingleDecider(true);
     }
 
-    public static void setFunctionCoins(Type mbtiType) {
-        String[] saviorFunctions = mbtiType.getSaviorFunctions();
+    public static void setFunctionCoins(Type type) {
+        String[] saviorFunctions = type.getSaviorFunctions();
 
         for (String function : saviorFunctions) {
             char leadLetter = function.charAt(0);
@@ -77,28 +75,28 @@ public class TypeParser {
 
             if (isTorF(leadLetter)) {
                 if (isLowercaseI(secondLetter))
-                    mbtiType.setSelfAboveTribe(true);
+                    type.setSelfAboveTribe(true);
                 if (leadLetter == 'T')
-                    mbtiType.setReasonAboveValue(true);
+                    type.setReasonAboveValue(true);
             }
 
             if (isNorS(leadLetter)) {
                 if (isLowercaseI(secondLetter))
-                    mbtiType.setOrganizeAboveGather(true);
+                    type.setOrganizeAboveGather(true);
                 if (leadLetter == 'N')
-                    mbtiType.setAbstractOverPhysical(true);
+                    type.setAbstractOverPhysical(true);
             }
         }
     }
 
-    public static void setAnimalCoins(Type mbtiType) {
-        char[] saviorAnimals = mbtiType.getSaviorAnimals();
+    public static void setAnimalCoins(Type type) {
+        char[] saviorAnimals = type.getSaviorAnimals();
 
         for (char saviorAnimal : saviorAnimals) {
             if (saviorAnimal == 'C')
-                mbtiType.setConsumeOverBlast(true);
+                type.setConsumeOverBlast(true);
             if (saviorAnimal == 'S')
-                mbtiType.setSleepOverPlay(true);
+                type.setSleepOverPlay(true);
         }
     }
 
@@ -122,6 +120,12 @@ public class TypeParser {
 
     public static boolean isM(char c) {
         if (c == 'M')
+            return true;
+        return false;
+    }
+
+    public static boolean isBorC(char c) {
+        if ((c == 'B') || (c == 'C'))
             return true;
         return false;
     }

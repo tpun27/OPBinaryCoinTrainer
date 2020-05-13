@@ -1,8 +1,8 @@
-package types;
-
-public abstract class Type {
+public class Type {
     String name;
-    String type;
+    String typeMbtiString;
+    String type512String;
+
 
     String[] saviorFunctions = new String[2];
     String[] demonFunctions = new String[2];
@@ -19,9 +19,10 @@ public abstract class Type {
     boolean masculineSensing;
     boolean masculineExtrovertedDecider;
 
-    Type(String name, String type) {
+    public Type(String name, String typeMbtiString, String type512String) {
         this.name = name;
-        this.type = type;
+        this.typeMbtiString = typeMbtiString;
+        this.type512String = type512String;
         TypeParser.parseRawType(this);
     }
 
@@ -29,8 +30,8 @@ public abstract class Type {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public String getType512String() {
+        return type512String;
     }
 
     public String[] getSaviorFunctions() {
@@ -53,8 +54,8 @@ public abstract class Type {
         this.name = name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType512String(String type512String) {
+        this.type512String = type512String;
     }
 
     public boolean isSingleDecider() {
