@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainGameScreen {
     public static String APP_TITLE = "OP Binary Coin Trainer";
@@ -33,6 +37,8 @@ public class MainGameScreen {
             {"Masculine De", "Feminine De"}
     };
 
+    public static List<JButton> menuButtons;
+
     public static void createAndShowGUI() {
         JFrame frame = new JFrame(APP_TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +49,7 @@ public class MainGameScreen {
 
         addMainInstructions(pane);
         addMainButtons(pane);
+        addMenuButtonHandlers(frame);
 
         frame.setVisible(true);
     }
@@ -56,10 +63,48 @@ public class MainGameScreen {
     }
 
     public static void addMainButtons(Container pane) {
+        menuButtons = new ArrayList<>();
         for (String buttonName : MainGameScreen.MENU_BUTTON_NAMES) {
             JButton button = new JButton(buttonName);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             pane.add(button);
+
+            menuButtons.add(button);
         }
+    }
+
+    public static void addMenuButtonHandlers(JFrame frame) {
+        int count = 0;
+        for (JButton menuButton : menuButtons) {
+            // anonymous functions cannot use local variables unless they are final
+            final int buttonNumber = count;
+            menuButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int action = JOptionPane.showConfirmDialog(
+                            frame,
+                            "Enter Easy/Progressive Mode?",
+                            "",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+
+                    createGameFrame(buttonNumber, action);
+                }
+            });
+            count++;
+        }
+    }
+
+    public static void createGameFrame(int buttonNumber, int action) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame frame = new JFrame(MENU_BUTTON_NAMES[buttonNumber]);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(600, 300);
+
+                frame.setVisible(true);
+            }
+        });
     }
 }
