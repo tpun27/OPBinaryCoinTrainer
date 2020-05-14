@@ -1,0 +1,65 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class MainGameScreen {
+    public static String APP_TITLE = "OP Binary Coin Trainer";
+
+    public static String[] MENU_INSTRUCTIONS = new String [] {
+            "Welcome to the OP Binary Coin trainer!",
+            "Please select from our menu options to start training!"
+    };
+
+    public static String[] MENU_BUTTON_NAMES = new String [] {
+            "1) Double Observer vs. Double Decider",
+            "2) Self above Tribe vs. Tribe above Self",
+            "3) Organize over Gather vs. Gather over Organize",
+            "4) Reasons over Values vs. Values over Reasons",
+            "5) Abstract over Physical vs. Physical over Abstract",
+            "6) Consume over Blast vs. Blast over Consume",
+            "7) Sleep over Play vs. Play over Sleep",
+            "8) Masculine Sensing vs. Feminine Sensing",
+            "9) Masculine Extroverted Decider vs. Feminine Extroverted Decider"
+    };
+
+    public static String[][] ANSWER_BUTTON_NAMES = new String[][] {
+            {"Double Observer (OO)", "Double Decider (DD)"},
+            {"Self above Tribe", "Tribe above Self"},
+            {"Organize over Gather", "Gather over Organize"},
+            {"Reasons (T) over Values (F)", "Values (F) over Reasons (T)"},
+            {"Abstract (N) over Physical (S)", "Physical (S) over Abstract (N)"},
+            {"Consume over Blast", "Blast over Consume"},
+            {"Sleep over Play", "Play over Sleep"},
+            {"Masculine Sensing", "Feminine Sensing"},
+            {"Masculine De", "Feminine De"}
+    };
+
+    public static void createAndShowGUI() {
+        JFrame frame = new JFrame(APP_TITLE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 350);
+
+        Container pane = frame.getContentPane();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+
+        addMainInstructions(pane);
+        addMainButtons(pane);
+
+        frame.setVisible(true);
+    }
+
+    public static void addMainInstructions(Container pane) {
+        for (String instruction : MainGameScreen.MENU_INSTRUCTIONS) {
+            JLabel label = new JLabel(instruction, JLabel.CENTER);
+            label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+            pane.add(label);
+        }
+    }
+
+    public static void addMainButtons(Container pane) {
+        for (String buttonName : MainGameScreen.MENU_BUTTON_NAMES) {
+            JButton button = new JButton(buttonName);
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            pane.add(button);
+        }
+    }
+}

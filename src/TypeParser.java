@@ -132,6 +132,40 @@ public class TypeParser {
         return false;
     }
 
+    public static int getExtrovertedDeciderIndex(Type type) {
+        int index = 0;
+
+        for (String function : type.getSaviorFunctions()) {
+            if (isExtrovertedDeciderFunction(function))
+                return index;
+            index++;
+        }
+
+        for (String function : type.getDemonFunctions()) {
+            if (isExtrovertedDeciderFunction(function))
+                return index;
+            index++;
+        }
+        return -1;
+    }
+
+    public static int getSensingIndex(Type type) {
+        int index = 0;
+
+        for (String function : type.getSaviorFunctions()) {
+            if (isSensingFunction(function))
+                return index;
+            index++;
+        }
+
+        for (String function : type.getDemonFunctions()) {
+            if (isSensingFunction(function))
+                return index;
+            index++;
+        }
+        return -1;
+    }
+
     public static boolean isTorF(char c) {
         if (c == 'T' || c == 'F')
                 return true;

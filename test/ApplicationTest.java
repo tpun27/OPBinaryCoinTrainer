@@ -24,11 +24,11 @@ class ApplicationTest {
         assertTrue(Application.getSensingSplitList().get(3).size() >= 31);
 
         Type intp = new Type("Bill Gates", "INTP", "FF-Ti/Ne-CS/P(B)");
-        assertEquals(3, Application.getExtrovertedDeciderIndex(intp));
-        assertEquals(2, Application.getSensingIndex(intp));
+        assertEquals(3, TypeParser.getExtrovertedDeciderIndex(intp));
+        assertEquals(2, TypeParser.getSensingIndex(intp));
 
         Type isfj = new Type("Hannah Hart", "ISFJ", "MM-Si/Fe-BP/C(S)");
-        assertEquals(1, Application.getExtrovertedDeciderIndex(isfj));
-        assertEquals(0, Application.getSensingIndex(isfj));
+        assertEquals(1, TypeParser.getExtrovertedDeciderIndex(isfj));
+        assertEquals(0, TypeParser.getSensingIndex(isfj));
     }
 }
