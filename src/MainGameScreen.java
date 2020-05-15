@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,9 +101,45 @@ public class MainGameScreen {
             @Override
             public void run() {
                 JFrame frame = new JFrame(MENU_BUTTON_NAMES[buttonNumber]);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(600, 300);
+                frame.setSize(600, 150);
 
+                JPanel gamePanel = new JPanel();
+                gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
+                TitledBorder titledBorder = BorderFactory.createTitledBorder("Score: 7/7");
+                gamePanel.setBorder(titledBorder);
+//                gamePanel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+                JLabel nameLabel = new JLabel("Bill Gates");
+                nameLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+                nameLabel.setFont(new Font(nameLabel.getFont().getName(), Font.BOLD, 40));
+
+                JButton firstButton = new JButton(ANSWER_BUTTON_NAMES[buttonNumber][0]);
+                JButton secondButton = new JButton(ANSWER_BUTTON_NAMES[buttonNumber][1]);
+
+                firstButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                secondButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                firstButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        nameLabel.setText("Barack Obama");
+                        titledBorder.setTitle("Score: 8/8");
+                        gamePanel.repaint();
+                    }
+                });
+
+                secondButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                    }
+                });
+
+                gamePanel.add(nameLabel);
+                gamePanel.add(firstButton);
+                gamePanel.add(secondButton);
+
+                frame.add(gamePanel);
                 frame.setVisible(true);
             }
         });
