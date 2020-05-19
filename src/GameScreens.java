@@ -4,9 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class MainGameScreen {
+public class GameScreens {
     public static String APP_TITLE = "OP Binary Coin Trainer";
 
     public static String[] MENU_INSTRUCTIONS = new String [] {
@@ -38,6 +39,15 @@ public class MainGameScreen {
             {"Masculine De", "Feminine De"}
     };
 
+    public static List<Integer> currentQuestionNumbers =
+            new ArrayList<>(Collections.nCopies(MENU_BUTTON_NAMES.length, 0));
+
+    public static List<List<String>> nameAndScorePairs = new ArrayList<List<String>>(MENU_BUTTON_NAMES.length) {{
+        for (int i = 0; i < MENU_BUTTON_NAMES.length; i++) {
+            nameAndScorePairs.add(new ArrayList<>(2));
+        }
+    }};
+
     public static List<JButton> menuButtons;
 
     public static void createAndShowGUI() {
@@ -56,7 +66,7 @@ public class MainGameScreen {
     }
 
     public static void addMainInstructions(Container pane) {
-        for (String instruction : MainGameScreen.MENU_INSTRUCTIONS) {
+        for (String instruction : GameScreens.MENU_INSTRUCTIONS) {
             JLabel label = new JLabel(instruction, JLabel.CENTER);
             label.setAlignmentX(JLabel.CENTER_ALIGNMENT);
             pane.add(label);
@@ -65,7 +75,7 @@ public class MainGameScreen {
 
     public static void addMainButtons(Container pane) {
         menuButtons = new ArrayList<>();
-        for (String buttonName : MainGameScreen.MENU_BUTTON_NAMES) {
+        for (String buttonName : GameScreens.MENU_BUTTON_NAMES) {
             JButton button = new JButton(buttonName);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             pane.add(button);
@@ -89,6 +99,9 @@ public class MainGameScreen {
                             JOptionPane.YES_NO_CANCEL_OPTION,
                             JOptionPane.QUESTION_MESSAGE);
 
+                    if (action == JOptionPane.CANCEL_OPTION)
+                        return;
+
                     createGameFrame(buttonNumber, action);
                 }
             });
@@ -100,6 +113,8 @@ public class MainGameScreen {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                List<Type> gameData = getGameData(buttonNumber, action);
+
                 JFrame frame = new JFrame(MENU_BUTTON_NAMES[buttonNumber]);
                 frame.setSize(600, 150);
 
@@ -107,9 +122,8 @@ public class MainGameScreen {
                 gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
                 TitledBorder titledBorder = BorderFactory.createTitledBorder("Score: 7/7");
                 gamePanel.setBorder(titledBorder);
-//                gamePanel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-                JLabel nameLabel = new JLabel("Bill Gates");
+                JLabel nameLabel = new JLabel("");
                 nameLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
                 nameLabel.setFont(new Font(nameLabel.getFont().getName(), Font.BOLD, 40));
 
@@ -119,11 +133,17 @@ public class MainGameScreen {
                 firstButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 secondButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+
+
+
                 firstButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        nameLabel.setText("Barack Obama");
-                        titledBorder.setTitle("Score: 8/8");
+
+//                        nameLabel.setText("Barack Obama");
+//                        titledBorder.setTitle("Score: 8/8");
+                        nameLabel.setText(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(0)));
+                        titledBorder.setTitle(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(1)));
                         gamePanel.repaint();
                     }
                 });
@@ -131,7 +151,7 @@ public class MainGameScreen {
                 secondButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        
+
                     }
                 });
 
@@ -143,5 +163,47 @@ public class MainGameScreen {
                 frame.setVisible(true);
             }
         });
+    }
+
+    public static List<Type> getGameData(int buttonNumber, int action) {
+        if (action == JOptionPane.YES_OPTION) {
+            return getProgressiveGameData(buttonNumber);
+        }
+        else if (action == JOptionPane.NO_OPTION) {
+            return Application.generateShuffledAllTypesList();
+        }
+        return new ArrayList<>();
+    }
+
+    public static List<Type> getProgressiveGameData(int buttonNumber) {
+        switch (buttonNumber) {
+            case 0:
+                // Progressive mode doesn't make sense for this option
+                return Application.generateShuffledAllTypesList();
+            case 1:
+                return Application.generateDeciderThenObserverProgressiveList();
+            case 2:
+                return Application.generateObserverThenDeciderProgressiveList();
+            case 3:
+                return Application.generateDeciderThenObserverProgressiveList();
+            case 4:
+                return Application.generateObserverThenDeciderProgressiveList();
+            case 5:
+                return Application.shuffleTwoListsThenCombineIntoNewList(
+                        Application.getConsumeOrBlastFirstList(),
+                        Application.getSleepOrPlayFirstList()
+                );
+            case 6:
+                return Application.shuffleTwoListsThenCombineIntoNewList(
+                        Application.getSleepOrPlayFirstList(),
+                        Application.getConsumeOrBlastFirstList()
+                );
+            case 7:
+                return Application.generateSensingProgressiveList();
+            case 8:
+                return Application.generateExtrovertedDeciderProgressiveList();
+            default:
+                return new ArrayList<>();
+        }
     }
 }
