@@ -39,16 +39,16 @@ public class GameScreens {
             {"Masculine De", "Feminine De"}
     };
 
-    public static List<Integer> currentQuestionNumbers =
-            new ArrayList<>(Collections.nCopies(MENU_BUTTON_NAMES.length, 0));
-
-    public static List<List<String>> nameAndScorePairs = new ArrayList<List<String>>(MENU_BUTTON_NAMES.length) {{
-        for (int i = 0; i < MENU_BUTTON_NAMES.length; i++) {
-            nameAndScorePairs.add(new ArrayList<>(2));
-        }
-    }};
-
     public static List<JButton> menuButtons;
+
+//    public static List<Integer> currentQuestionNumbers =
+//            new ArrayList<>(Collections.nCopies(MENU_BUTTON_NAMES.length, 0));
+//
+//    public static List<List<String>> nameAndScorePairs = new ArrayList<List<String>>(MENU_BUTTON_NAMES.length) {{
+//        for (int i = 0; i < MENU_BUTTON_NAMES.length; i++) {
+//            nameAndScorePairs.add(new ArrayList<>(2));
+//        }
+//    }};
 
     public static void createAndShowGUI() {
         JFrame frame = new JFrame(APP_TITLE);
@@ -133,8 +133,15 @@ public class GameScreens {
                 firstButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 secondButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+                CumulativeGameInfo cumulativeGameInfo = new CumulativeGameInfo();
+                Type currentType = gameData.get(0);
+                cumulativeGameInfo.setName(currentType.getName());
+                cumulativeGameInfo.setQuestionNumber(0);
+                cumulativeGameInfo.setQuestionsCorrect(0);
+                cumulativeGameInfo.setQuestionTotal(0);
 
-
+                nameLabel.setText(currentType.getName());
+                titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
 
                 firstButton.addActionListener(new ActionListener() {
                     @Override
@@ -142,16 +149,24 @@ public class GameScreens {
 
 //                        nameLabel.setText("Barack Obama");
 //                        titledBorder.setTitle("Score: 8/8");
-                        nameLabel.setText(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(0)));
-                        titledBorder.setTitle(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(1)));
+
+                        nameLabel.setText("");
+                        titledBorder.setTitle("");
                         gamePanel.repaint();
+
+                        JOptionPane.showMessageDialog(frame,
+                                "Correct");
+//                        nameLabel.setText(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(0)));
+//                        titledBorder.setTitle(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(1)));
+//                        gamePanel.repaint();
                     }
                 });
 
                 secondButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        JOptionPane.showMessageDialog(frame,
+                                "Wrong");
                     }
                 });
 
