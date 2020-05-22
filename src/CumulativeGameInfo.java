@@ -1,11 +1,17 @@
+import java.util.List;
+
 public class CumulativeGameInfo {
     String name;
     int questionNumber;
     int questionsCorrect;
-    int questionTotal;
+    List<Type> gameData;
+
+    CumulativeGameInfo(List<Type> gameData) {
+        this.gameData = gameData;
+    }
 
     public String generateScoreText() {
-        return "Score: " + Integer.toString(questionsCorrect) + "/" + Integer.toString(questionTotal);
+        return "Score: " + Integer.toString(questionsCorrect) + "/" + Integer.toString(questionNumber);
     }
 
     public String getName() {
@@ -32,11 +38,41 @@ public class CumulativeGameInfo {
         this.questionsCorrect = questionsCorrect;
     }
 
-    public int getQuestionTotal() {
-        return questionTotal;
+    public boolean updateGameInfo(boolean buttonChoice, int buttonNumber) {
+        questionNumber++;
+        try {
+            this.name = gameData.get(questionNumber).getName();
+        } catch (IndexOutOfBoundsException e) {
+            return true;
+        }
+        if (isCorrect(buttonChoice, buttonNumber))
+            questionsCorrect++;
+        return false;
     }
 
-    public void setQuestionTotal(int questionTotal) {
-        this.questionTotal = questionTotal;
+    public boolean isCorrect(boolean buttonChoice, int buttonNumber) {
+        Type type = gameData.get(questionNumber);
+        switch (buttonNumber) {
+            case 0:
+                return type.isSingleDecider() == buttonChoice;
+            case 1:
+                return type.isSelfAboveTribe() == buttonChoice;
+            case 2:
+                return type.isOrganizeAboveGather() == buttonChoice;
+            case 3:
+                return type.isReasonAboveValue() == buttonChoice;
+            case 4:
+                return type.isAbstractOverPhysical() == buttonChoice;
+            case 5:
+                return type.isConsumeOverBlast() == buttonChoice;
+            case 6:
+                return type.isSleepOverPlay() == buttonChoice;
+            case 7:
+                return type.isMasculineSensing() == buttonChoice;
+            case 8:
+                return type.isMasculineExtrovertedDecider() == buttonChoice;
+            default:
+                return false;
+        }
     }
 }

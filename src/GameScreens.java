@@ -3,8 +3,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GameScreens {
@@ -120,7 +120,7 @@ public class GameScreens {
 
                 JPanel gamePanel = new JPanel();
                 gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.Y_AXIS));
-                TitledBorder titledBorder = BorderFactory.createTitledBorder("Score: 7/7");
+                TitledBorder titledBorder = BorderFactory.createTitledBorder("Score:");
                 gamePanel.setBorder(titledBorder);
 
                 JLabel nameLabel = new JLabel("");
@@ -133,38 +133,45 @@ public class GameScreens {
                 firstButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 secondButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                CumulativeGameInfo cumulativeGameInfo = new CumulativeGameInfo();
-                Type currentType = gameData.get(0);
-                cumulativeGameInfo.setName(currentType.getName());
+                final CumulativeGameInfo cumulativeGameInfo = new CumulativeGameInfo(gameData);
+                cumulativeGameInfo.setName(gameData.get(0).getName());
                 cumulativeGameInfo.setQuestionNumber(0);
                 cumulativeGameInfo.setQuestionsCorrect(0);
-                cumulativeGameInfo.setQuestionTotal(0);
 
-                nameLabel.setText(currentType.getName());
+                nameLabel.setText(cumulativeGameInfo.getName());
                 titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
 
                 firstButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        boolean isGameOver = cumulativeGameInfo.updateGameInfo(true, buttonNumber);
+                        if (isGameOver) {
+                            JOptionPane.showMessageDialog(frame, "Game Over. Thanks for playing!");
+//                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                        }
 
-//                        nameLabel.setText("Barack Obama");
-//                        titledBorder.setTitle("Score: 8/8");
-
-                        nameLabel.setText("");
-                        titledBorder.setTitle("");
+                        nameLabel.setText(cumulativeGameInfo.getName());
+                        titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
                         gamePanel.repaint();
 
                         JOptionPane.showMessageDialog(frame,
                                 "Correct");
-//                        nameLabel.setText(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(0)));
-//                        titledBorder.setTitle(nameAndScorePairs.get(buttonNumber).get(currentQuestionNumbers.get(1)));
-//                        gamePanel.repaint();
                     }
                 });
 
                 secondButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        boolean isGameOver = cumulativeGameInfo.updateGameInfo(false, buttonNumber);
+                        if (isGameOver) {
+                            JOptionPane.showMessageDialog(frame, "Game Over. Thanks for playing!");
+//                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                        }
+
+                        nameLabel.setText(cumulativeGameInfo.getName());
+                        titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
+                        gamePanel.repaint();
+
                         JOptionPane.showMessageDialog(frame,
                                 "Wrong");
                     }
