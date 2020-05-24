@@ -39,19 +39,19 @@ public class CumulativeGameInfo {
     }
 
     public boolean updateGameInfo(boolean buttonChoice, int buttonNumber) {
-        questionNumber++;
-        try {
-            this.name = gameData.get(questionNumber).getName();
-        } catch (IndexOutOfBoundsException e) {
-            return true;
-        }
-        if (isCorrect(buttonChoice, buttonNumber))
+        boolean isCorrect = isCorrect(buttonChoice, buttonNumber);
+        if (isCorrect)
             questionsCorrect++;
-        return false;
+
+        questionNumber++;
+        this.name = gameData.get(questionNumber).getName();
+
+        return isCorrect;
     }
 
     public boolean isCorrect(boolean buttonChoice, int buttonNumber) {
         Type type = gameData.get(questionNumber);
+
         switch (buttonNumber) {
             case 0:
                 return type.isSingleDecider() == buttonChoice;

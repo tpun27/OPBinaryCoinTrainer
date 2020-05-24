@@ -144,36 +144,42 @@ public class GameScreens {
                 firstButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        boolean isGameOver = cumulativeGameInfo.updateGameInfo(true, buttonNumber);
-                        if (isGameOver) {
+                        boolean isCorrect = false;
+                        try {
+                            isCorrect = cumulativeGameInfo.updateGameInfo(true, buttonNumber);
+                        } catch (IndexOutOfBoundsException ex) {
                             JOptionPane.showMessageDialog(frame, "Game Over. Thanks for playing!");
-//                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                         }
 
                         nameLabel.setText(cumulativeGameInfo.getName());
                         titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
                         gamePanel.repaint();
 
-                        JOptionPane.showMessageDialog(frame,
-                                "Correct");
+                        String message = (isCorrect) ? "Correct Choice: " : "Incorrect Choice: ";
+                        message += firstButton.getText();
+
+                        JOptionPane.showMessageDialog(frame, message);
                     }
                 });
 
                 secondButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        boolean isGameOver = cumulativeGameInfo.updateGameInfo(false, buttonNumber);
-                        if (isGameOver) {
+                        boolean isCorrect = false;
+                        try {
+                            isCorrect = cumulativeGameInfo.updateGameInfo(false, buttonNumber);
+                        } catch (IndexOutOfBoundsException ex) {
                             JOptionPane.showMessageDialog(frame, "Game Over. Thanks for playing!");
-//                            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                         }
 
                         nameLabel.setText(cumulativeGameInfo.getName());
                         titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
                         gamePanel.repaint();
 
-                        JOptionPane.showMessageDialog(frame,
-                                "Wrong");
+                        String message = (isCorrect) ? "Correct Choice: " : "Incorrect Choice: ";
+                        message += secondButton.getText();
+
+                        JOptionPane.showMessageDialog(frame, message);
                     }
                 });
 

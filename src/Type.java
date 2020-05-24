@@ -23,6 +23,7 @@ public class Type {
         this.typeMbtiString = typeMbtiString;
         this.type512String = type512String;
         TypeParser.parseRawType(this);
+        TypeParser.deriveAndSetCoins(this);
     }
 
     public String getName() {
