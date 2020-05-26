@@ -3,7 +3,8 @@ import java.io.FileReader;
 import java.util.*;
 
 public class DataImporter {
-    private static String TYPE_DATA_FILE_NAME = "TypeData.csv";
+//    private static String TYPE_DATA_FILE_NAME = "TypeData.csv";
+    private static String TYPE_DATA_FILE_NAME = "TypeDataTest.csv";
     private static String COMMA_DELIMITER = ",";
 
     public static Map<String, Type> readTypeData() {

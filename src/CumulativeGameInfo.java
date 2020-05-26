@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CumulativeGameInfo {
@@ -38,15 +41,13 @@ public class CumulativeGameInfo {
         this.questionsCorrect = questionsCorrect;
     }
 
-    public boolean updateGameInfo(boolean buttonChoice, int buttonNumber) {
+    public void updateGameInfo(boolean buttonChoice, int buttonNumber) {
         boolean isCorrect = isCorrect(buttonChoice, buttonNumber);
         if (isCorrect)
             questionsCorrect++;
 
         questionNumber++;
         this.name = gameData.get(questionNumber).getName();
-
-        return isCorrect;
     }
 
     public boolean isCorrect(boolean buttonChoice, int buttonNumber) {
@@ -73,6 +74,21 @@ public class CumulativeGameInfo {
                 return type.isMasculineExtrovertedDecider() == buttonChoice;
             default:
                 return false;
+        }
+    }
+
+    public void generateResultsLog() {
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        FileWriter csvWriter = null;
+        try {
+            System.out.println(System.getProperty("user.dir"));
+            csvWriter = new FileWriter(timeStamp + ".csv");
+            csvWriter.append("Name");
+
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
