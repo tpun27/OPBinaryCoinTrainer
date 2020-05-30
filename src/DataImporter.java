@@ -1,16 +1,19 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class DataImporter {
-    private static String TYPE_DATA_FILE_NAME = "TypeData.csv";
-//    private static String TYPE_DATA_FILE_NAME = "TypeDataTest.csv";
+//    private static String TYPE_DATA_FILE_NAME = "./resources/TypeData.csv";
+private static String TYPE_DATA_FILE_NAME = "/TypeData.csv";
     private static String COMMA_DELIMITER = ",";
 
     public static Map<String, Type> readTypeData() {
         Map<String, Type> allTypesMap = new HashMap<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(TYPE_DATA_FILE_NAME))) {
+        try (InputStream inputStream = DataImporter.class.getResourceAsStream(TYPE_DATA_FILE_NAME);
+             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             Type type;
             while ((line = br.readLine()) != null) {
