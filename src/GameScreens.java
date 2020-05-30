@@ -40,6 +40,18 @@ public class GameScreens {
             {"Masculine De", "Feminine De"}
     };
 
+    public static String[][] ANSWER_LABELS_SHORTHAND = new String[][] {
+            {"OO", "DD"},
+            {"Di>De", "De>Di"},
+            {"Oi>Oe", "Oe>Oi"},
+            {"T>F", "F>T"},
+            {"N>S", "S>N"},
+            {"C>B", "B>C"},
+            {"S>P", "P>S"},
+            {"M-S", "F-S"},
+            {"M-De", "F-De"}
+    };
+
     public static List<JButton> menuButtons;
 
 //    public static List<Integer> currentQuestionNumbers =
@@ -138,6 +150,9 @@ public class GameScreens {
                 cumulativeGameInfo.setName(gameData.get(0).getName());
                 cumulativeGameInfo.setQuestionNumber(0);
                 cumulativeGameInfo.setQuestionsCorrect(0);
+                cumulativeGameInfo.setGameName(MENU_BUTTON_NAMES[buttonNumber]);
+                cumulativeGameInfo.setChoiceOneLabel(ANSWER_LABELS_SHORTHAND[buttonNumber][0]);
+                cumulativeGameInfo.setChoiceTwoLabel(ANSWER_LABELS_SHORTHAND[buttonNumber][1]);
 
                 nameLabel.setText(cumulativeGameInfo.getName());
                 titledBorder.setTitle(cumulativeGameInfo.generateScoreText());
@@ -211,6 +226,14 @@ public class GameScreens {
                     public void windowClosed(WindowEvent e) {
                         cumulativeGameInfo.generateResultsLog();
                         JOptionPane.showMessageDialog(frame, "Data Saved");
+                    }
+
+                    @Override
+                    public void windowDeactivated(WindowEvent e) {
+                        if (!frame.isVisible()) {
+                            cumulativeGameInfo.generateResultsLog();
+                            JOptionPane.showMessageDialog(frame, "Data Saved");
+                        }
                     }
                 });
 

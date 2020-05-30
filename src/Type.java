@@ -30,6 +30,10 @@ public class Type {
         return name;
     }
 
+    public String getTypeMbtiString() {
+        return typeMbtiString;
+    }
+
     public String getType512String() {
         return type512String;
     }
