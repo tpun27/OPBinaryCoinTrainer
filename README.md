@@ -14,7 +14,15 @@ A Java Swing program that quizzes you on the OPS binary coins:
 
 ### Running The Program
 
-See the video tutorial: [YouTube Link](https://www.youtube.com/)
+See the video demo: [YouTube Link](https://youtu.be/VXfazQS2PjQ)
+
+### Link To Install Java
+
+https://www.oracle.com/java/technologies/javase-jre8-downloads.html
+
+- Windows Computer: Most likely "Windows x64" (e.g. jre-8u251-windows-x64.exe) unless your computer is really old (e.g. "Windows x86 Online" jre-8u251-windows-i586-iftw.exe)
+- Mac: "macOS x64 Installer" (e.g. jre-8u251-macosx-x64.dmg)
+- Linux: Most likely one of the "Linux x64" options
 
 ### References:
 
