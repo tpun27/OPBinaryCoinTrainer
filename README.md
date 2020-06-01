@@ -16,6 +16,8 @@ A Java Swing program that quizzes you on the OPS binary coins:
 
 See the video demo: [YouTube Link](https://youtu.be/VXfazQS2PjQ)
 
+You can run the program by clicking the **Releases** button, downloading the most recent **OPBinaryCoinTrainer.jar** file, and double-clicking the file. (Requires Java to be installed on your computer to run. See below.)
+
 ### Link To Install Java
 
 https://www.oracle.com/java/technologies/javase-jre8-downloads.html
